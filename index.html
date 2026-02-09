@@ -225,7 +225,12 @@
     </section>
 
     <section>
-        <div class="photo-frame" style="transform: rotate(-2deg);">
+        <div class="photo-frame" id="cuddleFrame" style="transform: rotate(-2deg); position: relative; cursor: pointer;" onclick="unlockMemory()">
+            <div id="blur-overlay" style="position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(20px); z-index: 5; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; border-radius: 4px;">
+                <div style="font-size: 3rem;">🔒</div>
+                <p style="margin-top: 10px; font-weight: bold; text-transform: uppercase; letter-spacing: 2px;">Private Memory</p>
+                <p style="font-size: 0.8rem; opacity: 0.8;">(Tap to Unlock)</p>
+            </div>
             <img src="cuddle.jpeg" alt="Intimate">
         </div>
         <h1>Skin to Skin.</h1>
@@ -323,6 +328,23 @@
             });
         }, { threshold: 0.1 });
         document.querySelectorAll('section').forEach(s => observer.observe(s));
+
+        // --- PASSWORD PROTECT CUDDLE ---
+        function unlockMemory() {
+            const overlay = document.getElementById('blur-overlay');
+            if (overlay.style.display === 'none') return; // Already unlocked
+
+            // The Riddle
+            const answer = prompt("To view this memory, answer this:\n\nWho is the oldest between us, and by how many years? (Enter the number of years)");
+            
+            // Check for "0" since 2004 - 2004 = 0
+            if (answer && (answer.includes("0") || answer.toLowerCase().includes("zero"))) {
+                overlay.style.display = 'none';
+                alert("Correct. You know us best. ❤️");
+            } else {
+                alert("Wrong answer! Hint: We were born in the same year... 😉");
+            }
+        }
 
         // --- IPHONE NO BUTTON ---
         const noBtn = document.getElementById('noBtn');
