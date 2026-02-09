@@ -87,6 +87,16 @@
         img { width: 100%; display: block; filter: contrast(1.05); }
         video { width: 100%; display: block; object-fit: cover; }
 
+        /* --- BLUR SECURITY --- */
+        /* This forces the blur directly on the image */
+        .blurred-img {
+            filter: blur(30px) !important;
+            transition: filter 1s ease;
+        }
+        .unlocked-img {
+            filter: blur(0px) !important;
+        }
+
         /* --- TYPOGRAPHY --- */
         h1 {
             font-family: 'Cormorant Garamond', serif; font-size: 2.5rem;
@@ -101,7 +111,7 @@
             text-align: left;
         }
 
-        /* --- BUTTONS --- */
+        /* --- MINIMALIST BUTTONS --- */
         .btn-group { 
             margin-top: 40px; 
             height: 150px; 
@@ -109,16 +119,39 @@
             width: 100%; 
             display: flex; 
             justify-content: center; 
-            gap: 20px; 
+            gap: 30px; 
         }
+        
         .btn {
-            padding: 15px 40px; border-radius: 4px; border: 1px solid var(--accent);
-            font-size: 1rem; cursor: pointer; text-transform: uppercase;
-            background: transparent; color: var(--accent); transition: 0.2s;
+            padding: 12px 40px;
+            border: 1px solid rgba(255,255,255,0.5); /* Very thin, elegant border */
+            border-radius: 50px; /* Pill shape */
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300; /* Light elegant font */
+            font-size: 0.9rem; 
+            letter-spacing: 3px; /* Expensive look */
+            text-transform: uppercase;
+            background: transparent; 
+            color: #fff; 
+            cursor: pointer; 
+            transition: all 0.3s ease;
             z-index: 10;
         }
-        .yes-btn { background: var(--accent); color: #000; font-weight: bold; }
-        #noBtn { position: absolute; transition: all 0.1s ease; }
+
+        .yes-btn:hover {
+            background: #fff;
+            color: #000;
+            border-color: #fff;
+            box-shadow: 0 0 15px rgba(255,255,255,0.4);
+        }
+
+        #noBtn { 
+            position: absolute; 
+            border-color: #555; 
+            color: #777;
+            transition: all 0.1s ease; /* Fast movement */
+        }
+
     </style>
 </head>
 <body>
@@ -226,12 +259,15 @@
 
     <section>
         <div class="photo-frame" id="cuddleFrame" style="transform: rotate(-2deg); position: relative; cursor: pointer;" onclick="unlockMemory()">
-            <div id="blur-overlay" style="position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(20px); z-index: 5; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; border-radius: 4px;">
-                <div style="font-size: 3rem;">🔒</div>
-                <p style="margin-top: 10px; font-weight: bold; text-transform: uppercase; letter-spacing: 2px;">Private Memory</p>
-                <p style="font-size: 0.8rem; opacity: 0.8;">(Tap to Unlock)</p>
+            
+            <div id="blur-overlay" style="position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.4); z-index: 20; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; border-radius: 4px;">
+                <div style="font-size: 3rem; text-shadow: 0 4px 10px rgba(0,0,0,0.5);">🔒</div>
+                <p style="margin-top: 10px; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 2px 5px rgba(0,0,0,0.8);">Private Memory</p>
+                <p style="font-size: 0.8rem; opacity: 0.9; text-shadow: 0 2px 5px rgba(0,0,0,0.8);">(Tap to Unlock)</p>
             </div>
-            <img src="cuddle.jpeg" alt="Intimate">
+
+            <img id="cuddle-img" src="cuddle.jpeg" alt="Intimate" class="blurred-img">
+        
         </div>
         <h1>Skin to Skin.</h1>
         <div class="letter-text">
@@ -296,8 +332,8 @@
         </div>
         
         <div class="btn-group">
-            <button class="btn yes-btn" onclick="revealTwist()">YES ❤️</button>
-            <button class="btn" id="noBtn">NO</button>
+            <button class="btn yes-btn" onclick="revealTwist()">Yes</button>
+            <button class="btn" id="noBtn">No</button>
         </div>
     </section>
 
@@ -329,16 +365,23 @@
         }, { threshold: 0.1 });
         document.querySelectorAll('section').forEach(s => observer.observe(s));
 
-        // --- PASSWORD PROTECT CUDDLE ---
+        // --- PASSWORD PROTECT (FIXED BLUR) ---
         function unlockMemory() {
+            const img = document.getElementById('cuddle-img');
             const overlay = document.getElementById('blur-overlay');
-            if (overlay.style.display === 'none') return; // Already unlocked
+            
+            // If already unlocked, do nothing
+            if (!img.classList.contains('blurred-img')) return;
 
             // The Riddle
             const answer = prompt("To view this memory, answer this:\n\nWho is the oldest between us, and by how many years? (Enter the number of years)");
             
-            // Check for "0" since 2004 - 2004 = 0
+            // Check for "0"
             if (answer && (answer.includes("0") || answer.toLowerCase().includes("zero"))) {
+                // Remove blur class
+                img.classList.remove('blurred-img');
+                img.classList.add('unlocked-img');
+                // Hide overlay
                 overlay.style.display = 'none';
                 alert("Correct. You know us best. ❤️");
             } else {
@@ -348,7 +391,7 @@
 
         // --- IPHONE NO BUTTON ---
         const noBtn = document.getElementById('noBtn');
-        const phrases = ["Try Again!", "Oops!", "Too Slow!", "Nope!", "Big Mama Pls"];
+        const phrases = ["Try Again", "Oops", "Too Slow", "Nope", "Stop"];
         
         function runAway() {
             const maxX = window.innerWidth - 100;
@@ -359,8 +402,6 @@
             noBtn.style.left = `${randomX}px`;
             noBtn.style.top = `${randomY}px`;
             noBtn.innerText = phrases[Math.floor(Math.random() * phrases.length)];
-            noBtn.style.borderColor = "#ff4444";
-            noBtn.style.color = "#ff4444";
         }
 
         noBtn.addEventListener('mouseover', runAway);
