@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>For Big Mama ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,500;1,700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* --- DESIGN SYSTEM --- */
+        :root {
+            --bg: #050505;
+            --text: #e0e0e0;
+            --accent: #eebb00; /* Gold */
+            --glass: rgba(20, 20, 20, 0.9);
+        }
+        body {
+            margin: 0; padding: 0;
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            width: 100vw; 
+        }
+
+        /* --- START SCREEN --- */
+        #start-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; z-index: 9999;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            transition: opacity 0.8s ease-out;
+        }
+        .start-btn {
+            margin-top: 30px; padding: 15px 40px;
+            border: 1px solid var(--accent); color: var(--accent);
+            background: transparent; font-size: 1.2rem;
+            text-transform: uppercase; letter-spacing: 2px;
+            cursor: pointer;
+            z-index: 10000;
+        }
+
+        /* --- BACKGROUND --- */
+        .fixed-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background-image: url('bg.jpg'); 
+            background-size: cover; background-position: center;
+            opacity: 0.2; filter: grayscale(60%);
+        }
+
+        /* --- SECTIONS --- */
+        section {
+            min-height: 100vh;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            text-align: center; padding: 20px;
+            opacity: 0; transform: translateY(40px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+        section.visible { opacity: 1; transform: translateY(0); }
+
+        /* --- PHOTOS & VIDEO FRAME --- */
+        .photo-frame {
+            width: 85vw; max-width: 380px;
+            padding: 10px; background: #fff;
+            margin-bottom: 25px;
+            transform: rotate(-1deg);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+            transition: transform 0.3s;
+            overflow: hidden;
+        }
+        .photo-frame:hover { transform: scale(1.02) rotate(0deg); }
+        img { width: 100%; display: block; }
+        video { width: 100%; display: block; object-fit: cover; }
+
+        /* --- TYPOGRAPHY --- */
+        h1 {
+            font-family: 'Cormorant Garamond', serif; font-size: 2.5rem;
+            margin: 0 0 15px 0; color: var(--accent); font-style: italic;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.8);
+        }
+        .letter-text { 
+            font-size: 1.1rem; line-height: 1.7; color: #ddd; 
+            max-width: 500px; margin: 0 auto; 
+            background: var(--glass); padding: 20px; border-radius: 4px;
+            border-left: 2px solid var(--accent);
+            text-align: left;
+        }
+
+        /* --- BUTTONS --- */
+        .btn-group { 
+            margin-top: 40px; 
+            height: 150px; 
+            position: relative; 
+            width: 100%; 
+            display: flex; 
+            justify-content: center; 
+            gap: 20px; 
+        }
+        .btn {
+            padding: 15px 40px; border-radius: 4px; border: 1px solid var(--accent);
+            font-size: 1rem; cursor: pointer; text-transform: uppercase;
+            background: transparent; color: var(--accent); transition: 0.2s;
+            z-index: 10;
+        }
+        .yes-btn { background: var(--accent); color: #000; font-weight: bold; }
+        
+        #noBtn {
+            position: absolute; 
+            transition: all 0.1s ease; 
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="start-screen">
+        <h1 style="font-size: 3rem; color: #eebb00;">For Big Mama</h1>
+        <p style="color:#666; font-size: 0.9rem;">(Put your headphones on)</p>
+        <button class="start-btn" onclick="startExperience()">Open Letter 💌</button>
+    </div>
+
+    <audio id="loveSong" loop>
+        <source src="song.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="fixed-bg"></div>
+
+    <section>
+        <div class="photo-frame" style="transform: rotate(-2deg); margin-bottom: -40px; z-index: 1;">
+            <img src="ramada1.jpg" alt="Swing">
+        </div>
+        <div class="photo-frame" style="transform: rotate(2deg); z-index: 2;">
+            <img src="start.jpg" alt="Start">
+        </div>
+        <h1>29.03.2025</h1>
+        <div class="letter-text">
+            Ramada Hotel. The day it all began.<br><br>
+            I remember how nervous you were. "Deep shy," you called it. You could barely look at me without blushing. But even in that shyness, I saw it. I saw <i>us</i>. That was the moment my life changed forever.
+        </div>
+    </section>
+
+    <section>
+        <div class="photo-frame" style="transform: rotate(1deg);">
+            <img src="collage1.jpg" alt="Flight Memories">
+        </div>
+        <div class="photo-frame" style="transform: rotate(-1deg); width: 70vw; margin-top:-30px; z-index:2;">
+            <img src="collage2.jpg" alt="More Flight Memories">
+        </div>
+        <h1>The Journey.</h1>
+        <div class="letter-text">
+            From that first nervous day to our first flight to Arusha. Look at these moments. Look at us.<br><br>
+            If we've made it this far, through the miles and the madness, we are making it all the way. <strong>One year means for life.</strong>
+        </div>
+    </section>
+
+    <section>
+        <div class="photo-frame" style="transform: rotate(-1deg);">
+            <img src="light.jpg" alt="Us" style="transform: rotate(180deg);">
+        </div>
+        <h1>The Storm.</h1>
+        <div class="letter-text">
+            I won't lie—from December until today, it hasn't been easy. It's been a storm. I know I haven't been the easiest person to love lately.<br><br>
+            But look at us. We are still standing. I love you through the rough patches, the bad days, and the ugly moments. Nothing is shaking me. <strong>I'm still here.</strong>
+        </div>
+    </section>
+
+    <section>
+        <div class="photo-frame" style="transform: rotate(3deg); margin-bottom: -50px; z-index: 1;">
+            <img src="hands1.jpg" alt="Hands Crochet">
+        </div>
+        <div class="photo-frame" style="transform: rotate(-2deg); z-index: 2;">
+            <img src="hands2.jpg" alt="Hands Jeep">
+        </div>
+        <h1>Unbreakable.</h1>
+        <div class="letter-text">
+            Whether we are in a Jeep in the middle of nowhere or just laying in bed... my hand fits in yours like it was made for it.<br><br>
+            I am never letting go.
+        </div>
+    </section>
+
+    <section>
+        <div class="photo-frame" style="transform: rotate(-1deg);">
+            <img src="fit.jpg" alt="The Fit">
+        </div>
+        <div class="photo-frame" style="transform: rotate(2deg); width: 60vw; margin-top: -20px;">
+            <img src="goofy.jpg" alt="Goofy">
+        </div>
+        <h1>The Real You.</h1>
+        <div class="letter-text">
+            I know you hate that first picture, but I love it. And the second one? That's the side of you only I get to see.<br><br>
+            Sassy. Goofy. Real. You are my favorite person to annoy.
+        </div>
+    </section>
+
+    <section>
+        <div class="photo-frame" style="transform: rotate(2deg);">
+            <img src="calls.jpg" alt="Missed Calls">
+        </div>
+        <h1>Fan Behavior.</h1>
+        <div class="letter-text">
+            "I'm not obsessed with you, Baba Maembe." Oh really?<br><br>
+            The call logs don't lie! Look at this. You can play cool all you want, but I know the truth: <strong>You are my biggest fan.</strong> (And I love it).
+        </div>
+    </section>
+
+    <section>
+        <div class="photo-frame" style="transform: rotate(1deg);">
+            <img src="pool.jpg" alt="Pool">
+        </div>
+        <h1>Deep Waters.</h1>
+        <div class="letter-text">
+            Late night talks by the pool. Teaching you how to swim. Just us, the water, and the truth.<br><br>
+            Those quiet moments are where I fell even deeper in love with you.
+        </div>
+    </section>
+
+    <section>
+        <div class="photo-frame" style="transform: rotate(-2deg);">
+            <img src="cuddle.jpg" alt="Intimate">
+        </div>
+        <h1>Skin to Skin.</h1>
+        <div class="letter-text">
+            This moment... it wasn't just intimacy. It was a promise. <br><br>
+            Skin to skin. Vulnerable. Trusting. That was the moment I knew you were mine, and I was yours completely.
+        </div>
+    </section>
+
+    <section>
+        <div class="photo-frame" style="transform: rotate(2deg);">
+            <video autoplay loop muted playsinline>
+                <source src="video.mp4" type="video/mp4">
+            </video>
+        </div>
+        <h1>In Motion.</h1>
+        <div class="letter-text">
+            Photos are great, but seeing you in motion? That is a whole different kind of magic.
+        </div>
+    </section>
+
+    <section>
+        <div class="photo-frame" style="transform: rotate(-2deg);">
+            <img src="care.JPG" alt="Care">
+        </div>
+        <h1>Little Things.</h1>
+        <div class="letter-text">
+            Just drinking Boba and playing games. You were carefully fixing the card on my head so I wouldn't cheat.<br><br>
+            It's these tiny, gentle moments where you take care of me that make me realize how lucky I am.
+        </div>
+    </section>
+
+    <section>
+        <div class="photo-frame" style="transform: rotate(1deg);">
+            <img src="future.jpg" alt="Maturity">
+        </div>
+        <h1>My Future.</h1>
+        <div class="letter-text">
+            Look at you. I see so much growth in this face. I see grace. I see maturity.<br><br>
+            You might not see it yet, but I do. When I look at this picture, I don't just see a girlfriend. <strong>I see the mother of my children.</strong> I see the woman I want to grow old with.
+        </div>
+    </section>
+
+    <section>
+        <h1>Will You Be My Valentine?</h1>
+        <div class="letter-text" style="text-align:center; background:transparent; border:none;">
+            I want to make it right. Starting now.
+        </div>
+        
+        <div class="btn-group">
+            <button class="btn yes-btn" onclick="revealTwist()">YES ❤️</button>
+            <button class="btn" id="noBtn">NO</button>
+        </div>
+    </section>
+
+    <div id="twist-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:black; z-index:6000; align-items:center; justify-content:center; flex-direction:column; text-align:center;">
+        <h1 style="color:#eebb00; padding:20px;">I Knew It.</h1>
+        <p style="font-size:1.2rem; max-width:80%; line-height:1.6; color:#fff;">
+            But listen...<br>
+            This website is just the invitation.<br><br>
+            <strong>The flowers are real.</strong><br>
+            And I'm bringing them to you right now.
+        </p>
+        <p style="color:#555; margin-top:30px; font-size:0.9rem;">- Baba Maembe</p>
+    </div>
+
+    <script>
+        function startExperience() {
+            const screen = document.getElementById('start-screen');
+            screen.style.opacity = '0';
+            setTimeout(() => { screen.style.display = 'none'; }, 800);
+            const audio = document.getElementById('loveSong');
+            audio.volume = 0.5;
+            audio.play().catch(e => console.log("Audio failed to play"));
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('section').forEach(s => observer.observe(s));
+
+        // --- IPHONE NO BUTTON ---
+        const noBtn = document.getElementById('noBtn');
+        const phrases = ["Try Again!", "Oops!", "Too Slow!", "Nope!", "Big Mama Pls"];
+        
+        function runAway() {
+            const maxX = window.innerWidth - 100;
+            const maxY = 100;
+            const randomX = Math.random() * (maxX - 20) + 10;
+            const randomY = Math.random() * (maxY * 2) - maxY;
+            
+            noBtn.style.left = `${randomX}px`;
+            noBtn.style.top = `${randomY}px`;
+            noBtn.innerText = phrases[Math.floor(Math.random() * phrases.length)];
+            noBtn.style.borderColor = "#ff4444";
+            noBtn.style.color = "#ff4444";
+        }
+
+        noBtn.addEventListener('mouseover', runAway);
+        noBtn.addEventListener('touchstart', (e) => { e.preventDefault(); runAway(); });
+        noBtn.addEventListener('click', (e) => { e.preventDefault(); runAway(); });
+
+        function revealTwist() {
+            document.getElementById('twist-overlay').style.display = 'flex';
+        }
+    </script>
+</body>
+</html>
