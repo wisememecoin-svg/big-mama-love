@@ -456,10 +456,28 @@
             (Only send this if I am the only "Daddy" in your phone 👀)
         </p>
 
-        <p style="color:#555; margin-top:30px; font-size:0.9rem;">- Baba Maembe</p>
+        <p id="signature" style="color:#555; margin-top:30px; font-size:0.9rem; cursor: pointer; user-select: none;" onclick="secretCheck()">- Baba Maembe</p>
     </div>
 
     <script>
+        // --- VIEW COUNTER ---
+        let views = localStorage.getItem('v_count') || 0;
+        views++;
+        localStorage.setItem('v_count', views);
+
+        // --- SECRET TAP SYSTEM ---
+        let tapCount = 0;
+        let tapTimer;
+        function secretCheck() {
+            tapCount++;
+            clearTimeout(tapTimer);
+            tapTimer = setTimeout(() => { tapCount = 0; }, 1000); // Reset if not tapped quickly
+            if (tapCount === 3) {
+                alert("Fan Behavior Level: " + views + " views.");
+                tapCount = 0;
+            }
+        }
+
         // --- SMART LOADING SYSTEM ---
         window.addEventListener('load', () => {
             const loadingText = document.getElementById('loading-text');
@@ -485,7 +503,7 @@
         }, { threshold: 0.1 });
         document.querySelectorAll('section').forEach(s => observer.observe(s));
 
-        // --- PASSWORD PROTECT (CREATIVE QUESTION) ---
+        // --- PASSWORD PROTECT ---
         function unlockMemory() {
             const img = document.getElementById('cuddle-img');
             const overlay = document.getElementById('blur-overlay');
@@ -493,15 +511,13 @@
 
             const answer = prompt("My day. Your day. The code that unlocks everything.");
             
-            // Check for "1229"
             if (answer && answer.includes("1229")) {
                 img.classList.remove('blurred-img');
                 img.classList.add('unlocked-img');
                 overlay.style.display = 'none';
                 alert("Correct. You know us best. ❤️");
             } else {
-                // AGGRESSIVE WRONG ANSWER
-                alert("Wrong answer! WHO TF IS YOU BITCH ... 😉");
+                alert("Wrong answer! WHO TF IS YOU BITCH ... 😉 (" + views + ")");
             }
         }
 
